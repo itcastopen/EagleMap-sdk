@@ -1,0 +1,42 @@
+package cn.itcast.em.sdk.vo;
+
+public class CoordinateVo {
+
+    private Double longitude; //经度
+    private Double latitude; //纬度
+
+    public CoordinateVo() {
+    }
+
+    public CoordinateVo(Double longitude, Double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    /**
+     * 将经纬度数据用逗号连接
+     *
+     * @return
+     */
+    public String toParam() {
+        return longitude + "," + latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+
+}
