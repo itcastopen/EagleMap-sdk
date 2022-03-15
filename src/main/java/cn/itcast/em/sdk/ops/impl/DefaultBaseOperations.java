@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
+import cn.itcast.em.sdk.enums.CoordinateType;
 import cn.itcast.em.sdk.enums.ServerType;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.BaseOperations;
@@ -11,7 +12,9 @@ import cn.itcast.em.sdk.vo.CoordinateVo;
 import cn.itcast.em.sdk.vo.IpResultVo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author zzj
@@ -126,5 +129,67 @@ public class DefaultBaseOperations implements BaseOperations {
     @Override
     public String staticMapImage(ServerType provider, Double longitude, Double latitude) {
         return this.staticMapImage(provider, longitude, latitude, 750, 300, 10, null);
+    }
+
+    @Override
+    public List<CoordinateVo> convertToGcj02(ServerType provider, CoordinateType fromType, CoordinateVo... coordinateVos) {
+        String url = eagleMapConfig.getUri() + "/api/coordinate/convert/gcj02";
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("provider", provider.getName());
+        requestParam.put("fromType", fromType);
+        requestParam.put("coordinates", coordinateVos);
+
+        return this.eagleMapTemplate.getJsonHttpApiService().doPost(url, requestParam, response -> {
+            if (response.isOk()) {
+                JSONObject jsonObject = JSONUtil.parseObj(response.body());
+                if (jsonObject.getInt("code") == 0) {
+                    return jsonObject.getJSONArray("data")
+                            .stream().map(o -> {
+                                JSONObject json = (JSONObject) o;
+                                return new CoordinateVo(json.getDouble("longitude"), json.getDouble("latitude"));
+                            }).collect(Collectors.toList());
+                }
+                //将响应信息抛出
+                throw new CommonException(jsonObject.getStr("msg"));
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public List<CoordinateVo> convertToGcj02(CoordinateType fromType, CoordinateVo... coordinateVos) {
+        return this.convertToGcj02(ServerType.NONE, fromType, coordinateVos);
+    }
+
+    @Override
+    public List<CoordinateVo> baiduConvertToGcj02(CoordinateVo... coordinateVos) {
+        return this.convertToGcj02(ServerType.NONE, CoordinateType.BAIDU, coordinateVos);
+    }
+
+    @Override
+    public CoordinateVo convert(ServerType provider, CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo) {
+        String url = eagleMapConfig.getUri() + "/api/coordinate/convert";
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("provider", provider.getName());
+        requestParam.put("fromType", fromType);
+        requestParam.put("toType", toType);
+        requestParam.put("coordinate", coordinateVo);
+
+        return this.eagleMapTemplate.getJsonHttpApiService().doPost(url, requestParam, response -> {
+            if (response.isOk()) {
+                JSONObject jsonObject = JSONUtil.parseObj(response.body());
+                if (jsonObject.getInt("code") == 0) {
+                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), CoordinateVo.class);
+                }
+                //将响应信息抛出
+                throw new CommonException(jsonObject.getStr("msg"));
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo) {
+        return this.convert(ServerType.NONE, fromType, toType, coordinateVo);
     }
 }

@@ -38,5 +38,12 @@ public class CoordinateVo {
         this.latitude = latitude;
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("CoordinateVo{");
+        sb.append("longitude=").append(longitude);
+        sb.append(", latitude=").append(latitude);
+        sb.append('}');
+        return sb.toString();
+    }
 }

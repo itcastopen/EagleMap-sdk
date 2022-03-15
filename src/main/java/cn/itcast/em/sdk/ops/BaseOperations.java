@@ -1,8 +1,12 @@
 package cn.itcast.em.sdk.ops;
 
+import cn.hutool.core.util.CoordinateUtil;
+import cn.itcast.em.sdk.enums.CoordinateType;
 import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.vo.CoordinateVo;
 import cn.itcast.em.sdk.vo.IpResultVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -121,5 +125,53 @@ public interface BaseOperations {
      * @return
      */
     String staticMapImage(Double longitude, Double latitude);
+
+    /**
+     * 将源坐标体系的坐标转化为gcj02
+     *
+     * @param provider      指定提供方
+     * @param fromType      源类型
+     * @param coordinateVos 待转化的坐标值列表
+     * @return
+     */
+    List<CoordinateVo> convertToGcj02(ServerType provider, CoordinateType fromType, CoordinateVo... coordinateVos);
+
+    /**
+     * 将源坐标体系的坐标转化为gcj02，不指定提供商由EagleMap自动选择
+     *
+     * @param fromType      源类型
+     * @param coordinateVos 待转化的坐标值列表
+     * @return
+     */
+    List<CoordinateVo> convertToGcj02(CoordinateType fromType, CoordinateVo... coordinateVos);
+
+    /**
+     * 将百度的坐标转化为gcj02，不指定提供商由EagleMap自动选择
+     *
+     * @param coordinateVos 待转化的坐标值列表
+     * @return
+     */
+    List<CoordinateVo> baiduConvertToGcj02(CoordinateVo... coordinateVos);
+
+    /**
+     * 指定坐标体系转化
+     *
+     * @param provider      指定提供方
+     * @param fromType      原坐标类型
+     * @param toType        目标坐标类型
+     * @param coordinateVo 待转化的坐标值
+     * @return
+     */
+    CoordinateVo convert(ServerType provider, CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo);
+
+    /**
+     * 指定坐标体系转化，不指定提供商由EagleMap自动选择
+     *
+     * @param fromType      原坐标类型
+     * @param toType        目标坐标类型
+     * @param coordinateVo 待转化的坐标值
+     * @return
+     */
+    CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo);
 
 }
