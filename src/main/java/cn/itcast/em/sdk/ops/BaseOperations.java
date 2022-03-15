@@ -1,10 +1,9 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.hutool.core.util.CoordinateUtil;
 import cn.itcast.em.sdk.enums.CoordinateType;
 import cn.itcast.em.sdk.enums.ServerType;
-import cn.itcast.em.sdk.vo.CoordinateVo;
-import cn.itcast.em.sdk.vo.IpResultVo;
+import cn.itcast.em.sdk.vo.Coordinate;
+import cn.itcast.em.sdk.vo.IpResult;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public interface BaseOperations {
      * @param provider 服务提供商，必须大写，如：BAIDU,AMAP,NONE，默认：高德地图
      * @return
      */
-    IpResultVo queryIp(String ip, Integer type, ServerType provider);
+    IpResult queryIp(String ip, Integer type, ServerType provider);
 
     /**
      * IP定位是一套简单的HTTP接口，根据用户输入的IP地址，能够快速的帮用户定位IP的所在位置。
@@ -33,7 +32,7 @@ public interface BaseOperations {
      * @param type IP类型,值为 4 或 6，4 表示 IPv4，6 表示 IPv6
      * @return
      */
-    IpResultVo queryIp(String ip, Integer type);
+    IpResult queryIp(String ip, Integer type);
 
     /**
      * IP定位是一套简单的HTTP接口，根据用户输入的IP地址，能够快速的帮用户定位IP的所在位置。
@@ -41,7 +40,7 @@ public interface BaseOperations {
      * @param ip IP地址，如：114.242.26.45
      * @return
      */
-    IpResultVo queryIp(String ip);
+    IpResult queryIp(String ip);
 
     /**
      * 查询静态地图
@@ -131,27 +130,27 @@ public interface BaseOperations {
      *
      * @param provider      指定提供方
      * @param fromType      源类型
-     * @param coordinateVos 待转化的坐标值列表
+     * @param coordinates 待转化的坐标值列表
      * @return
      */
-    List<CoordinateVo> convertToGcj02(ServerType provider, CoordinateType fromType, CoordinateVo... coordinateVos);
+    List<Coordinate> convertToGcj02(ServerType provider, CoordinateType fromType, Coordinate... coordinates);
 
     /**
      * 将源坐标体系的坐标转化为gcj02，不指定提供商由EagleMap自动选择
      *
      * @param fromType      源类型
-     * @param coordinateVos 待转化的坐标值列表
+     * @param coordinates 待转化的坐标值列表
      * @return
      */
-    List<CoordinateVo> convertToGcj02(CoordinateType fromType, CoordinateVo... coordinateVos);
+    List<Coordinate> convertToGcj02(CoordinateType fromType, Coordinate... coordinates);
 
     /**
      * 将百度的坐标转化为gcj02，不指定提供商由EagleMap自动选择
      *
-     * @param coordinateVos 待转化的坐标值列表
+     * @param coordinates 待转化的坐标值列表
      * @return
      */
-    List<CoordinateVo> baiduConvertToGcj02(CoordinateVo... coordinateVos);
+    List<Coordinate> baiduConvertToGcj02(Coordinate... coordinates);
 
     /**
      * 指定坐标体系转化
@@ -159,20 +158,20 @@ public interface BaseOperations {
      * @param provider     指定提供方
      * @param fromType     原坐标类型
      * @param toType       目标坐标类型
-     * @param coordinateVo 待转化的坐标值
+     * @param coordinate 待转化的坐标值
      * @return
      */
-    CoordinateVo convert(ServerType provider, CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo);
+    Coordinate convert(ServerType provider, CoordinateType fromType, CoordinateType toType, Coordinate coordinate);
 
     /**
      * 指定坐标体系转化，不指定提供商由EagleMap自动选择
      *
      * @param fromType     原坐标类型
      * @param toType       目标坐标类型
-     * @param coordinateVo 待转化的坐标值
+     * @param coordinate 待转化的坐标值
      * @return
      */
-    CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo);
+    Coordinate convert(CoordinateType fromType, CoordinateType toType, Coordinate coordinate);
 
     /**
      * 为了使用方便基于hutool工具的封装
@@ -193,7 +192,7 @@ public interface BaseOperations {
      * @param latitude  维度值
      * @return 火星坐标 (GCJ-02)
      */
-    CoordinateVo wgs84ToGcj02(Double longitude, Double latitude);
+    Coordinate wgs84ToGcj02(Double longitude, Double latitude);
 
     /**
      * 为了使用方便基于hutool工具的封装
@@ -203,7 +202,7 @@ public interface BaseOperations {
      * @param latitude  维度值
      * @return bd09 坐标
      */
-    CoordinateVo wgs84ToBd09(Double longitude, Double latitude);
+    Coordinate wgs84ToBd09(Double longitude, Double latitude);
 
     /**
      * 为了使用方便基于hutool工具的封装
@@ -213,7 +212,7 @@ public interface BaseOperations {
      * @param latitude  维度坐标
      * @return WGS84 坐标
      */
-    CoordinateVo gcj02ToWgs84(Double longitude, Double latitude);
+    Coordinate gcj02ToWgs84(Double longitude, Double latitude);
 
     /**
      * 为了使用方便基于hutool工具的封装
@@ -224,7 +223,7 @@ public interface BaseOperations {
      * @param latitude  纬度值
      * @return GCJ-02 坐标
      */
-    CoordinateVo bd09ToGcj02(Double longitude, Double latitude);
+    Coordinate bd09ToGcj02(Double longitude, Double latitude);
 
     /**
      * 为了使用方便基于hutool工具的封装
@@ -234,6 +233,6 @@ public interface BaseOperations {
      * @param latitude  纬度值
      * @return BD-09 坐标
      */
-    CoordinateVo gcj02ToBd09(Double longitude, Double latitude);
+    Coordinate gcj02ToBd09(Double longitude, Double latitude);
 
 }

@@ -2,20 +2,20 @@ package cn.itcast.em.sdk.vo;
 
 import cn.hutool.core.util.CoordinateUtil;
 
-public class CoordinateVo {
+public class Coordinate {
 
     private Double longitude; //经度
     private Double latitude; //纬度
 
-    public CoordinateVo() {
+    public Coordinate() {
     }
 
-    public CoordinateVo(CoordinateUtil.Coordinate coordinate) {
+    public Coordinate(CoordinateUtil.Coordinate coordinate) {
         this.longitude = coordinate.getLng();
         this.latitude = coordinate.getLat();
     }
 
-    public CoordinateVo(Double longitude, Double latitude) {
+    public Coordinate(Double longitude, Double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }

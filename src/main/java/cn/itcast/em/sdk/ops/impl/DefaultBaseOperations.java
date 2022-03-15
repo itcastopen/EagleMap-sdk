@@ -9,8 +9,8 @@ import cn.itcast.em.sdk.enums.CoordinateType;
 import cn.itcast.em.sdk.enums.ServerType;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.BaseOperations;
-import cn.itcast.em.sdk.vo.CoordinateVo;
-import cn.itcast.em.sdk.vo.IpResultVo;
+import cn.itcast.em.sdk.vo.Coordinate;
+import cn.itcast.em.sdk.vo.IpResult;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +41,7 @@ public class DefaultBaseOperations implements BaseOperations {
      * @return
      */
     @Override
-    public IpResultVo queryIp(String ip, Integer type, ServerType provider) {
+    public IpResult queryIp(String ip, Integer type, ServerType provider) {
         String url = eagleMapConfig.getUri() + "/api/ip";
         Map<String, Object> param = new HashMap<>();
         param.put("ip", ip);
@@ -51,7 +51,7 @@ public class DefaultBaseOperations implements BaseOperations {
             if (response.isOk()) {
                 JSONObject jsonObject = JSONUtil.parseObj(response.body());
                 if (jsonObject.getInt("code") == 0) {
-                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), IpResultVo.class);
+                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), IpResult.class);
                 }
                 //将响应信息抛出
                 throw new CommonException(jsonObject.getStr("msg"));
@@ -68,7 +68,7 @@ public class DefaultBaseOperations implements BaseOperations {
      * @return
      */
     @Override
-    public IpResultVo queryIp(String ip, Integer type) {
+    public IpResult queryIp(String ip, Integer type) {
         return this.queryIp(ip, type, ServerType.NONE);
     }
 
@@ -79,7 +79,7 @@ public class DefaultBaseOperations implements BaseOperations {
      * @return
      */
     @Override
-    public IpResultVo queryIp(String ip) {
+    public IpResult queryIp(String ip) {
         return this.queryIp(ip, 4, ServerType.NONE);
     }
 
@@ -88,7 +88,7 @@ public class DefaultBaseOperations implements BaseOperations {
         String url = eagleMapConfig.getUri() + "/api/static/map";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
-        requestParam.put("location", new CoordinateVo(longitude, latitude));
+        requestParam.put("location", new Coordinate(longitude, latitude));
         requestParam.put("width", width);
         requestParam.put("height", height);
         requestParam.put("zoom", zoom);
@@ -133,12 +133,12 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public List<CoordinateVo> convertToGcj02(ServerType provider, CoordinateType fromType, CoordinateVo... coordinateVos) {
+    public List<Coordinate> convertToGcj02(ServerType provider, CoordinateType fromType, Coordinate... coordinates) {
         String url = eagleMapConfig.getUri() + "/api/coordinate/convert/gcj02";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
         requestParam.put("fromType", fromType);
-        requestParam.put("coordinates", coordinateVos);
+        requestParam.put("coordinates", coordinates);
 
         return this.eagleMapTemplate.getJsonHttpApiService().doPost(url, requestParam, response -> {
             if (response.isOk()) {
@@ -147,7 +147,7 @@ public class DefaultBaseOperations implements BaseOperations {
                     return jsonObject.getJSONArray("data")
                             .stream().map(o -> {
                                 JSONObject json = (JSONObject) o;
-                                return new CoordinateVo(json.getDouble("longitude"), json.getDouble("latitude"));
+                                return new Coordinate(json.getDouble("longitude"), json.getDouble("latitude"));
                             }).collect(Collectors.toList());
                 }
                 //将响应信息抛出
@@ -158,29 +158,29 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public List<CoordinateVo> convertToGcj02(CoordinateType fromType, CoordinateVo... coordinateVos) {
-        return this.convertToGcj02(ServerType.NONE, fromType, coordinateVos);
+    public List<Coordinate> convertToGcj02(CoordinateType fromType, Coordinate... coordinates) {
+        return this.convertToGcj02(ServerType.NONE, fromType, coordinates);
     }
 
     @Override
-    public List<CoordinateVo> baiduConvertToGcj02(CoordinateVo... coordinateVos) {
-        return this.convertToGcj02(ServerType.NONE, CoordinateType.BAIDU, coordinateVos);
+    public List<Coordinate> baiduConvertToGcj02(Coordinate... coordinates) {
+        return this.convertToGcj02(ServerType.NONE, CoordinateType.BAIDU, coordinates);
     }
 
     @Override
-    public CoordinateVo convert(ServerType provider, CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo) {
+    public Coordinate convert(ServerType provider, CoordinateType fromType, CoordinateType toType, Coordinate coordinate) {
         String url = eagleMapConfig.getUri() + "/api/coordinate/convert";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
         requestParam.put("fromType", fromType);
         requestParam.put("toType", toType);
-        requestParam.put("coordinate", coordinateVo);
+        requestParam.put("coordinate", coordinate);
 
         return this.eagleMapTemplate.getJsonHttpApiService().doPost(url, requestParam, response -> {
             if (response.isOk()) {
                 JSONObject jsonObject = JSONUtil.parseObj(response.body());
                 if (jsonObject.getInt("code") == 0) {
-                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), CoordinateVo.class);
+                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), Coordinate.class);
                 }
                 //将响应信息抛出
                 throw new CommonException(jsonObject.getStr("msg"));
@@ -190,8 +190,8 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo) {
-        return this.convert(ServerType.NONE, fromType, toType, coordinateVo);
+    public Coordinate convert(CoordinateType fromType, CoordinateType toType, Coordinate coordinate) {
+        return this.convert(ServerType.NONE, fromType, toType, coordinate);
     }
 
     @Override
@@ -200,27 +200,27 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public CoordinateVo wgs84ToGcj02(Double longitude, Double latitude) {
-        return new CoordinateVo(CoordinateUtil.wgs84ToGcj02(longitude, latitude));
+    public Coordinate wgs84ToGcj02(Double longitude, Double latitude) {
+        return new Coordinate(CoordinateUtil.wgs84ToGcj02(longitude, latitude));
     }
 
     @Override
-    public CoordinateVo wgs84ToBd09(Double longitude, Double latitude) {
-        return new CoordinateVo(CoordinateUtil.wgs84ToBd09(longitude, latitude));
+    public Coordinate wgs84ToBd09(Double longitude, Double latitude) {
+        return new Coordinate(CoordinateUtil.wgs84ToBd09(longitude, latitude));
     }
 
     @Override
-    public CoordinateVo gcj02ToWgs84(Double longitude, Double latitude) {
-        return new CoordinateVo(CoordinateUtil.gcj02ToWgs84(longitude, latitude));
+    public Coordinate gcj02ToWgs84(Double longitude, Double latitude) {
+        return new Coordinate(CoordinateUtil.gcj02ToWgs84(longitude, latitude));
     }
 
     @Override
-    public CoordinateVo bd09ToGcj02(Double longitude, Double latitude) {
-        return new CoordinateVo(CoordinateUtil.bd09ToGcj02(longitude, latitude));
+    public Coordinate bd09ToGcj02(Double longitude, Double latitude) {
+        return new Coordinate(CoordinateUtil.bd09ToGcj02(longitude, latitude));
     }
 
     @Override
-    public CoordinateVo gcj02ToBd09(Double longitude, Double latitude) {
-        return new CoordinateVo(CoordinateUtil.gcj02ToBd09(longitude, latitude));
+    public Coordinate gcj02ToBd09(Double longitude, Double latitude) {
+        return new Coordinate(CoordinateUtil.gcj02ToBd09(longitude, latitude));
     }
 }

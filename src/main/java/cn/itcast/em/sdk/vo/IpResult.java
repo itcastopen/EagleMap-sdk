@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.vo;
 
-public class IpResultVo {
+public class IpResult {
 
     private String country; //国家（或地区）
     private String province; //省份
