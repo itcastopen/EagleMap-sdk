@@ -156,9 +156,9 @@ public interface BaseOperations {
     /**
      * 指定坐标体系转化
      *
-     * @param provider      指定提供方
-     * @param fromType      原坐标类型
-     * @param toType        目标坐标类型
+     * @param provider     指定提供方
+     * @param fromType     原坐标类型
+     * @param toType       目标坐标类型
      * @param coordinateVo 待转化的坐标值
      * @return
      */
@@ -167,11 +167,73 @@ public interface BaseOperations {
     /**
      * 指定坐标体系转化，不指定提供商由EagleMap自动选择
      *
-     * @param fromType      原坐标类型
-     * @param toType        目标坐标类型
+     * @param fromType     原坐标类型
+     * @param toType       目标坐标类型
      * @param coordinateVo 待转化的坐标值
      * @return
      */
     CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * 判断坐标是否在国外<br>
+     * 火星坐标系 (GCJ-02)只对国内有效，国外无需转换
+     *
+     * @param longitude 经度
+     * @param latitude  纬度
+     * @return 坐标是否在国外
+     */
+    boolean outOfChina(Double longitude, Double latitude);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * WGS84 转换为 火星坐标系 (GCJ-02)
+     *
+     * @param longitude 经度值
+     * @param latitude  维度值
+     * @return 火星坐标 (GCJ-02)
+     */
+    CoordinateVo wgs84ToGcj02(Double longitude, Double latitude);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * WGS84 坐标转为 百度坐标系 (BD-09) 坐标
+     *
+     * @param longitude 经度值
+     * @param latitude  维度值
+     * @return bd09 坐标
+     */
+    CoordinateVo wgs84ToBd09(Double longitude, Double latitude);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * 火星坐标系 (GCJ-02) 转换为 WGS84
+     *
+     * @param longitude 经度坐标
+     * @param latitude  维度坐标
+     * @return WGS84 坐标
+     */
+    CoordinateVo gcj02ToWgs84(Double longitude, Double latitude);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * 百度坐标系 (BD-09) 与 火星坐标系 (GCJ-02)的转换
+     * 即 百度 转 谷歌、高德
+     *
+     * @param longitude 经度值
+     * @param latitude  纬度值
+     * @return GCJ-02 坐标
+     */
+    CoordinateVo bd09ToGcj02(Double longitude, Double latitude);
+
+    /**
+     * 为了使用方便基于hutool工具的封装
+     * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换
+     *
+     * @param longitude 经度值
+     * @param latitude  纬度值
+     * @return BD-09 坐标
+     */
+    CoordinateVo gcj02ToBd09(Double longitude, Double latitude);
 
 }

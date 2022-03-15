@@ -1,5 +1,6 @@
 package cn.itcast.em.sdk.ops.impl;
 
+import cn.hutool.core.util.CoordinateUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
@@ -191,5 +192,35 @@ public class DefaultBaseOperations implements BaseOperations {
     @Override
     public CoordinateVo convert(CoordinateType fromType, CoordinateType toType, CoordinateVo coordinateVo) {
         return this.convert(ServerType.NONE, fromType, toType, coordinateVo);
+    }
+
+    @Override
+    public boolean outOfChina(Double longitude, Double latitude) {
+        return CoordinateUtil.outOfChina(longitude, latitude);
+    }
+
+    @Override
+    public CoordinateVo wgs84ToGcj02(Double longitude, Double latitude) {
+        return new CoordinateVo(CoordinateUtil.wgs84ToGcj02(longitude, latitude));
+    }
+
+    @Override
+    public CoordinateVo wgs84ToBd09(Double longitude, Double latitude) {
+        return new CoordinateVo(CoordinateUtil.wgs84ToBd09(longitude, latitude));
+    }
+
+    @Override
+    public CoordinateVo gcj02ToWgs84(Double longitude, Double latitude) {
+        return new CoordinateVo(CoordinateUtil.gcj02ToWgs84(longitude, latitude));
+    }
+
+    @Override
+    public CoordinateVo bd09ToGcj02(Double longitude, Double latitude) {
+        return new CoordinateVo(CoordinateUtil.bd09ToGcj02(longitude, latitude));
+    }
+
+    @Override
+    public CoordinateVo gcj02ToBd09(Double longitude, Double latitude) {
+        return new CoordinateVo(CoordinateUtil.gcj02ToBd09(longitude, latitude));
     }
 }
