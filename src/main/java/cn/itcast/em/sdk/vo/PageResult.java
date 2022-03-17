@@ -19,6 +19,7 @@ public class PageResult<T> {
         PageResult<T> pageResult = new PageResult<>();
         pageResult.setPage(data.getInt("data"));
         pageResult.setPageSize(data.getInt("pageSize"));
+        pageResult.setPage(data.getInt("page"));
         pageResult.setTotal(data.getInt("total"));
         pageResult.setPageCount(data.getInt("pageCount"));
         pageResult.setItems(JSONUtil.toList(data.getJSONArray("items"), clazz));

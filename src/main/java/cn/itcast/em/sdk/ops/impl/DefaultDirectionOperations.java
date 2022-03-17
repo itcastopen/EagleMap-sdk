@@ -4,7 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.DirectionOperations;
 import cn.itcast.em.sdk.vo.Coordinate;
@@ -30,27 +30,27 @@ public class DefaultDirectionOperations implements DirectionOperations {
     }
 
     @Override
-    public String driving(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
+    public String driving(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/direction/driving";
         return this.execute(url, provider, origin, destination, param);
     }
 
     @Override
-    public String driving(ServerType provider, Coordinate origin, Coordinate destination) {
+    public String driving(ProviderEnum provider, Coordinate origin, Coordinate destination) {
         return this.driving(provider, origin, destination, null);
     }
 
     @Override
     public String driving(Coordinate origin, Coordinate destination) {
-        return this.driving(ServerType.NONE, origin, destination, null);
+        return this.driving(ProviderEnum.NONE, origin, destination, null);
     }
 
     @Override
     public String driving(Coordinate origin, Coordinate destination, Map<String, Object> param) {
-        return this.driving(ServerType.NONE, origin, destination, param);
+        return this.driving(ProviderEnum.NONE, origin, destination, param);
     }
 
-    private String execute(String url, ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
+    private String execute(String url, ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
         requestParam.put("origin", origin);
@@ -70,44 +70,44 @@ public class DefaultDirectionOperations implements DirectionOperations {
     }
 
     @Override
-    public String walking(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
+    public String walking(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/direction/walking";
         return this.execute(url, provider, origin, destination, param);
     }
 
     @Override
-    public String walking(ServerType provider, Coordinate origin, Coordinate destination) {
+    public String walking(ProviderEnum provider, Coordinate origin, Coordinate destination) {
         return this.walking(provider, origin, destination, null);
     }
 
     @Override
     public String walking(Coordinate origin, Coordinate destination) {
-        return this.walking(ServerType.NONE, origin, destination, null);
+        return this.walking(ProviderEnum.NONE, origin, destination, null);
     }
 
     @Override
     public String walking(Coordinate origin, Coordinate destination, Map<String, Object> param) {
-        return this.walking(ServerType.NONE, origin, destination, param);
+        return this.walking(ProviderEnum.NONE, origin, destination, param);
     }
 
     @Override
-    public String bicycling(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
+    public String bicycling(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/direction/bicycling";
         return this.execute(url, provider, origin, destination, param);
     }
 
     @Override
-    public String bicycling(ServerType provider, Coordinate origin, Coordinate destination) {
+    public String bicycling(ProviderEnum provider, Coordinate origin, Coordinate destination) {
         return this.bicycling(provider, origin, destination, null);
     }
 
     @Override
     public String bicycling(Coordinate origin, Coordinate destination) {
-        return this.bicycling(ServerType.NONE, origin, destination, null);
+        return this.bicycling(ProviderEnum.NONE, origin, destination, null);
     }
 
     @Override
     public String bicycling(Coordinate origin, Coordinate destination, Map<String, Object> param) {
-        return this.bicycling(ServerType.NONE, origin, destination, null);
+        return this.bicycling(ProviderEnum.NONE, origin, destination, null);
     }
 }

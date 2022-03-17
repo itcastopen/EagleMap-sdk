@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.PageResult;
 import cn.itcast.em.sdk.vo.TraceTerminal;
 
@@ -26,7 +26,7 @@ public interface TraceTerminalOperations {
      * @param props    自定义字段，具体参考百度/高德文档
      * @return 终端id
      */
-    Long create(ServerType provider, Long serverId, String name, String desc, Map<String, Object> props);
+    Long create(ProviderEnum provider, Long serverId, String name, String desc, Map<String, Object> props);
 
     /**
      * 创建终端，不指定服务id，EagleMap会选择一个可用的服务，如果没有可用的服务将自动创建（仅限高德地图，百度地图不会自动创建服务）
@@ -37,7 +37,7 @@ public interface TraceTerminalOperations {
      * @param props    自定义字段，具体参考百度/高德文档
      * @return 终端id
      */
-    Long create(ServerType provider, String name, String desc, Map<String, Object> props);
+    Long create(ProviderEnum provider, String name, String desc, Map<String, Object> props);
 
     /**
      * 创建终端，不指定服务商由EagleMap选择，默认高德地图
@@ -70,7 +70,7 @@ public interface TraceTerminalOperations {
      * @param desc     终端描述
      * @return 终端id
      */
-    Long create(ServerType provider, Long serverId, String name, String desc);
+    Long create(ProviderEnum provider, Long serverId, String name, String desc);
 
     /**
      * 创建终端,不指定服务id，EagleMap会选择一个可用的服务，如果没有可用的服务将自动创建（仅限高德地图，百度地图不会自动创建服务）
@@ -80,7 +80,7 @@ public interface TraceTerminalOperations {
      * @param desc     终端描述
      * @return 终端id
      */
-    Long create(ServerType provider, String name, String desc);
+    Long create(ProviderEnum provider, String name, String desc);
 
     /**
      * 创建终端
@@ -110,7 +110,7 @@ public interface TraceTerminalOperations {
      * @param terminalId 终端id
      * @return 是否成功
      */
-    Boolean delete(ServerType provider, Long serverId, Long terminalId);
+    Boolean delete(ProviderEnum provider, Long serverId, Long terminalId);
 
     /**
      * 删除终端，不指定服务商由EagleMap选择，默认高德地图
@@ -132,7 +132,7 @@ public interface TraceTerminalOperations {
      * @param props      自定义参数
      * @return 是否成功
      */
-    Boolean update(ServerType provider, Long serverId, Long terminalId, String name, String desc, Map<String, Object> props);
+    Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name, String desc, Map<String, Object> props);
 
     /**
      * 更新轨迹终端，不指定服务商由EagleMap选择，默认高德地图
@@ -156,7 +156,7 @@ public interface TraceTerminalOperations {
      * @param desc       迹终描述
      * @return 是否成功
      */
-    Boolean update(ServerType provider, Long serverId, Long terminalId, String name, String desc);
+    Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name, String desc);
 
     /**
      * 更新轨迹终端，不指定服务商由EagleMap选择，默认高德地图
@@ -178,7 +178,7 @@ public interface TraceTerminalOperations {
      * @param name       迹终名称
      * @return 是否成功
      */
-    Boolean update(ServerType provider, Long serverId, Long terminalId, String name);
+    Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name);
 
     /**
      * 更新轨迹终端，不指定服务商由EagleMap选择，默认高德地图
@@ -201,7 +201,7 @@ public interface TraceTerminalOperations {
      * @param pageSize   页面大小，默认：50
      * @return 分页结果数据
      */
-    PageResult<TraceTerminal> queryList(ServerType provider, Long serverId, Long terminalId, String name, Integer page, Integer pageSize);
+    PageResult<TraceTerminal> queryList(ProviderEnum provider, Long serverId, Long terminalId, String name, Integer page, Integer pageSize);
 
     /**
      * 查询终端列表
@@ -212,7 +212,7 @@ public interface TraceTerminalOperations {
      * @param pageSize 页面大小
      * @return 分页结果数据
      */
-    PageResult<TraceTerminal> queryList(ServerType provider, Long serverId, Integer page, Integer pageSize);
+    PageResult<TraceTerminal> queryList(ProviderEnum provider, Long serverId, Integer page, Integer pageSize);
 
     /**
      * 查询终端列表，不指定服务商由EagleMap选择，默认高德地图
@@ -223,5 +223,26 @@ public interface TraceTerminalOperations {
      * @return 分页结果数据
      */
     PageResult<TraceTerminal> queryList(Long serverId, Integer page, Integer pageSize);
+
+    /**
+     * 查询终端在某个轨迹中的最新位置
+     *
+     * @param provider   服务商
+     * @param serverId   服务id
+     * @param terminalId 终端id
+     * @param traceId    轨迹id
+     * @return 服务商响应的数据
+     */
+    String queryLastPoint(ProviderEnum provider, Long serverId, Long terminalId, Long traceId);
+
+    /**
+     * 查询终端在某个轨迹中的最新位置
+     *
+     * @param serverId   服务id
+     * @param terminalId 终端id
+     * @param traceId    轨迹id
+     * @return 服务商响应的数据
+     */
+    String queryLastPoint(Long serverId, Long terminalId, Long traceId);
 
 }

@@ -4,7 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.TraceServerOperations;
 import cn.itcast.em.sdk.vo.TraceServer;
@@ -34,7 +34,7 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
     public Long create(String name, String desc) {
         String url = eagleMapConfig.getUri() + "/api/trace/server";
         Map<String, Object> param = new HashMap<>();
-        param.put("provider", ServerType.AMAP.getName());
+        param.put("provider", ProviderEnum.AMAP.getName());
         param.put("name", name);
         param.put("desc", desc);
         return this.eagleMapTemplate.getJsonHttpApiService().doPost(url, param, response -> {
@@ -56,7 +56,7 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
     }
 
     @Override
-    public Boolean delete(ServerType provider, Long serverId) {
+    public Boolean delete(ProviderEnum provider, Long serverId) {
         String url = eagleMapConfig.getUri() + "/api/trace/server";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -76,11 +76,11 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
 
     @Override
     public Boolean delete(Long serverId) {
-        return this.delete(ServerType.NONE, serverId);
+        return this.delete(ProviderEnum.NONE, serverId);
     }
 
     @Override
-    public Boolean update(ServerType provider, Long serverId, String name, String desc) {
+    public Boolean update(ProviderEnum provider, Long serverId, String name, String desc) {
         String url = eagleMapConfig.getUri() + "/api/trace/server";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -102,16 +102,16 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
 
     @Override
     public Boolean update(Long serverId, String name, String desc) {
-        return this.update(ServerType.NONE, serverId, name, desc);
+        return this.update(ProviderEnum.NONE, serverId, name, desc);
     }
 
     @Override
     public Boolean update(Long serverId, String name) {
-        return this.update(ServerType.NONE, serverId, name, null);
+        return this.update(ProviderEnum.NONE, serverId, name, null);
     }
 
     @Override
-    public TraceServer queryById(ServerType provider, Long serverId) {
+    public TraceServer queryById(ProviderEnum provider, Long serverId) {
         String url = eagleMapConfig.getUri() + "/api/trace/server/" + serverId;
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -130,11 +130,11 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
 
     @Override
     public TraceServer queryById(Long serverId) {
-        return this.queryById(ServerType.NONE, serverId);
+        return this.queryById(ProviderEnum.NONE, serverId);
     }
 
     @Override
-    public List<TraceServer> queryAll(ServerType provider) {
+    public List<TraceServer> queryAll(ProviderEnum provider) {
         String url = eagleMapConfig.getUri() + "/api/trace/server/";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -153,6 +153,6 @@ public class DefaultTraceServerOperations implements TraceServerOperations {
 
     @Override
     public List<TraceServer> queryAll() {
-        return this.queryAll(ServerType.NONE);
+        return this.queryAll(ProviderEnum.NONE);
     }
 }

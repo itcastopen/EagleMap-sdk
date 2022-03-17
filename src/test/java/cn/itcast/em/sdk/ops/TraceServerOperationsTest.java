@@ -1,14 +1,12 @@
 package cn.itcast.em.sdk.ops;
 
 import cn.itcast.em.sdk.EagleMapTemplate;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.TraceServer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @author zzj
@@ -55,7 +53,7 @@ public class TraceServerOperationsTest {
     @Test
     public void queryAll() {
         List<TraceServer> traceServerList =
-                this.eagleMapTemplate.opsForTraceServer().queryAll(ServerType.AMAP);
+                this.eagleMapTemplate.opsForTraceServer().queryAll(ProviderEnum.AMAP);
         traceServerList.forEach(traceServer -> System.out.println(traceServer));
     }
 }

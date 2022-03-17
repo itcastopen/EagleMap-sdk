@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.TraceServer;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public interface TraceServerOperations {
      * @param serverId 服务id
      * @return
      */
-    Boolean delete(ServerType provider, Long serverId);
+    Boolean delete(ProviderEnum provider, Long serverId);
 
     /**
      * 删除轨迹服务，不指定服务商由系统自动选择
@@ -72,7 +72,7 @@ public interface TraceServerOperations {
      * @param desc     服务描述，非必须
      * @return
      */
-    Boolean update(ServerType provider, Long serverId, String name, String desc);
+    Boolean update(ProviderEnum provider, Long serverId, String name, String desc);
 
     /**
      * 更新轨迹服务，不指定服务商由系统自动选择
@@ -106,7 +106,7 @@ public interface TraceServerOperations {
      * @param serverId 服务id
      * @return 轨迹服务信息
      */
-    TraceServer queryById(ServerType provider, Long serverId);
+    TraceServer queryById(ProviderEnum provider, Long serverId);
 
     /**
      * 查询单个轨迹服务，不指定服务商由系统自动选择
@@ -122,7 +122,7 @@ public interface TraceServerOperations {
      * @param provider 服务商
      * @return 轨迹服务信息列表
      */
-    List<TraceServer> queryAll(ServerType provider);
+    List<TraceServer> queryAll(ProviderEnum provider);
 
     /**
      * 查询所有的轨迹服务，不指定服务商由系统自动选择

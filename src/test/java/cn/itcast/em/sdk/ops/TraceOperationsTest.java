@@ -2,7 +2,7 @@ package cn.itcast.em.sdk.ops;
 
 import cn.hutool.core.map.MapUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.PageResult;
 import cn.itcast.em.sdk.vo.Trace;
 import org.junit.Before;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author zzj
@@ -33,8 +31,11 @@ public class TraceOperationsTest {
 
     @Test
     public void create() {
+        Long serverId = 617418L;
+        Long terminalId = 492666422L;
+
         Long traceId = this.eagleMapTemplate.opsForTrace()
-                .create(ServerType.AMAP, 617418L, 492731778L, "trace_" + System.currentTimeMillis());
+                .create(ProviderEnum.AMAP, serverId, terminalId, "trace_" + System.currentTimeMillis());
 
         System.out.println(traceId);
     }
@@ -45,6 +46,10 @@ public class TraceOperationsTest {
 
     @Test
     public void upload() {
+        Long serverId = 617418L;
+        Long terminalId = 492666422L;
+        Long traceId = 260L;
+
         List<Map<String, Object>> pointList = new ArrayList<>();
         long time = System.currentTimeMillis();
         pointList.add(MapUtil.builder(new HashMap<String, Object>())
@@ -84,7 +89,7 @@ public class TraceOperationsTest {
                 .build());
 
         Boolean result = this.eagleMapTemplate.opsForTrace()
-                .upload(617418L, 492731778L, 240L, pointList);
+                .upload(ProviderEnum.AMAP, serverId, terminalId, traceId, pointList);
         System.out.println(result);
     }
 
@@ -106,8 +111,8 @@ public class TraceOperationsTest {
     @Test
     public void queryTraceInfo() {
         Long serverId = 617418L;
-        Long terminalId = 492731778L;
-        Long traceId = 240L;
+        Long terminalId = 492666422L;
+        Long traceId = 260L;
 
         Trace trace = this.eagleMapTemplate.opsForTrace()
                 .queryTraceInfo(serverId, terminalId, traceId, null);
@@ -118,7 +123,7 @@ public class TraceOperationsTest {
     @Test
     public void queryTraceImage() {
         String image = this.eagleMapTemplate.opsForTrace()
-                .queryTraceImage(ServerType.AMAP, 617418L, 492731778L, 240L, null, null, null);
+                .queryTraceImage(ProviderEnum.AMAP, 617418L, 492731778L, 240L, null, null, null);
         System.out.println(image);
     }
 }

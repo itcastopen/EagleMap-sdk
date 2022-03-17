@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.PageResult;
 import cn.itcast.em.sdk.vo.Trace;
 
@@ -25,7 +25,7 @@ public interface TraceOperations {
      * @param name       轨迹名称
      * @return
      */
-    Long create(ServerType provider, Long serverId, Long terminalId, String name);
+    Long create(ProviderEnum provider, Long serverId, Long terminalId, String name);
 
     /**
      * 创建轨迹，不指定服务商由EagleMap选择，默认高德地图
@@ -46,7 +46,7 @@ public interface TraceOperations {
      * @param traceId    轨迹id
      * @return 是否成功
      */
-    Boolean delete(ServerType provider, Long serverId, Long terminalId, Long traceId);
+    Boolean delete(ProviderEnum provider, Long serverId, Long terminalId, Long traceId);
 
     /**
      * 删除轨迹，不指定服务商由EagleMap选择，默认高德地图
@@ -68,7 +68,7 @@ public interface TraceOperations {
      * @param pointList  轨迹点列表
      * @return 是否成功
      */
-    Boolean upload(ServerType provider, Long serverId, Long terminalId, Long traceId, List<Map<String, Object>> pointList);
+    Boolean upload(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, List<Map<String, Object>> pointList);
 
     /**
      * 上传轨迹点，不指定服务商由EagleMap选择，默认高德地图
@@ -91,7 +91,7 @@ public interface TraceOperations {
      * @param param      其他的请求参数，用于查询轨迹详情的参数
      * @@return 是否成功
      */
-    Boolean stopTrace(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
+    Boolean stopTrace(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
 
     /**
      * 停止运动，该方法会将轨迹中的轨迹点数据持久化本地数据库中
@@ -113,7 +113,7 @@ public interface TraceOperations {
      * @param pageSize 页面大小
      * @return 轨迹列表数据
      */
-    PageResult<Trace> queryTracePageList(ServerType provider, Integer page, Integer pageSize);
+    PageResult<Trace> queryTracePageList(ProviderEnum provider, Integer page, Integer pageSize);
 
     /**
      * 分页查询轨迹列表，按照轨迹创建时间倒序排序
@@ -136,7 +136,7 @@ public interface TraceOperations {
      * @param param      其他的请求参数，用于查询轨迹详情的参数
      * @return 轨迹信息
      */
-    Trace queryTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
+    Trace queryTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
 
     /**
      * 查询轨迹详情，优先查询本地数据库，如本地库中没有数据，再查询地图服务商
@@ -162,7 +162,7 @@ public interface TraceOperations {
      * @param param      其他的请求参数，用于查询轨迹详情的参数
      * @return
      */
-    Trace queryOnLineTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
+    Trace queryOnLineTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param);
 
     /**
      * 查询轨迹详情，不查询本地数据库，直接从地图服务商查询
@@ -175,7 +175,7 @@ public interface TraceOperations {
      * @param traceId    轨迹id
      * @return
      */
-    Trace queryOnLineTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId);
+    Trace queryOnLineTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId);
 
     /**
      * 查询轨迹详情，不查询本地数据库，直接从地图服务商查询
@@ -214,7 +214,7 @@ public interface TraceOperations {
      * @param param      其他的请求参数，用于查询轨迹详情的参数
      * @return base64图片数据，在网页中 <img src="data:image/jpg;base64,xxxxxxxxxxxxxxxxx"/> 显示
      */
-    String queryTraceImage(ServerType provider, Long serverId, Long terminalId, Long traceId, Integer width, Integer height, Map<String, Object> param);
+    String queryTraceImage(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Integer width, Integer height, Map<String, Object> param);
 
     /**
      * 查询轨迹缩略图

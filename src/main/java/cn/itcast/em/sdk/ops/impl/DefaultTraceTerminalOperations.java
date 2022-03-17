@@ -4,7 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.TraceTerminalOperations;
 import cn.itcast.em.sdk.vo.PageResult;
@@ -29,7 +29,7 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
     }
 
     @Override
-    public Long create(ServerType provider, Long serverId, String name, String desc, Map<String, Object> props) {
+    public Long create(ProviderEnum provider, Long serverId, String name, String desc, Map<String, Object> props) {
         String url = eagleMapConfig.getUri() + "/api/trace/terminal";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -51,42 +51,42 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
     }
 
     @Override
-    public Long create(ServerType provider, String name, String desc, Map<String, Object> props) {
+    public Long create(ProviderEnum provider, String name, String desc, Map<String, Object> props) {
         return this.create(provider, null, name, desc, props);
     }
 
     @Override
     public Long create(Long serverId, String name, String desc, Map<String, Object> props) {
-        return this.create(ServerType.NONE, serverId, name, desc, props);
+        return this.create(ProviderEnum.NONE, serverId, name, desc, props);
     }
 
     @Override
     public Long create(String name, String desc, Map<String, Object> props) {
-        return this.create(ServerType.NONE, null, name, desc, props);
+        return this.create(ProviderEnum.NONE, null, name, desc, props);
     }
 
     @Override
-    public Long create(ServerType provider, Long serverId, String name, String desc) {
-        return this.create(ServerType.NONE, serverId, name, desc, null);
+    public Long create(ProviderEnum provider, Long serverId, String name, String desc) {
+        return this.create(ProviderEnum.NONE, serverId, name, desc, null);
     }
 
     @Override
-    public Long create(ServerType provider, String name, String desc) {
-        return this.create(ServerType.NONE, null, name, desc, null);
+    public Long create(ProviderEnum provider, String name, String desc) {
+        return this.create(ProviderEnum.NONE, null, name, desc, null);
     }
 
     @Override
     public Long create(Long serverId, String name, String desc) {
-        return this.create(ServerType.NONE, serverId, name, desc, null);
+        return this.create(ProviderEnum.NONE, serverId, name, desc, null);
     }
 
     @Override
     public Long create(String name, String desc) {
-        return this.create(ServerType.NONE, null, name, desc, null);
+        return this.create(ProviderEnum.NONE, null, name, desc, null);
     }
 
     @Override
-    public Boolean delete(ServerType provider, Long serverId, Long terminalId) {
+    public Boolean delete(ProviderEnum provider, Long serverId, Long terminalId) {
         String url = eagleMapConfig.getUri() + "/api/trace/terminal";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -107,11 +107,11 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
 
     @Override
     public Boolean delete(Long serverId, Long terminalId) {
-        return this.delete(ServerType.NONE, serverId, terminalId);
+        return this.delete(ProviderEnum.NONE, serverId, terminalId);
     }
 
     @Override
-    public Boolean update(ServerType provider, Long serverId, Long terminalId, String name, String desc, Map<String, Object> props) {
+    public Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name, String desc, Map<String, Object> props) {
         String url = eagleMapConfig.getUri() + "/api/trace/terminal";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -135,31 +135,31 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
 
     @Override
     public Boolean update(Long serverId, Long terminalId, String name, String desc, Map<String, Object> props) {
-        return this.update(ServerType.NONE, serverId, terminalId, name, desc, props);
+        return this.update(ProviderEnum.NONE, serverId, terminalId, name, desc, props);
     }
 
     @Override
-    public Boolean update(ServerType provider, Long serverId, Long terminalId, String name, String desc) {
+    public Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name, String desc) {
         return this.update(provider, serverId, terminalId, name, desc, null);
     }
 
     @Override
     public Boolean update(Long serverId, Long terminalId, String name, String desc) {
-        return this.update(ServerType.NONE, serverId, terminalId, name, desc, null);
+        return this.update(ProviderEnum.NONE, serverId, terminalId, name, desc, null);
     }
 
     @Override
-    public Boolean update(ServerType provider, Long serverId, Long terminalId, String name) {
+    public Boolean update(ProviderEnum provider, Long serverId, Long terminalId, String name) {
         return this.update(provider, serverId, terminalId, name, null, null);
     }
 
     @Override
     public Boolean update(Long serverId, Long terminalId, String name) {
-        return this.update(ServerType.NONE, serverId, terminalId, name, null, null);
+        return this.update(ProviderEnum.NONE, serverId, terminalId, name, null, null);
     }
 
     @Override
-    public PageResult<TraceTerminal> queryList(ServerType provider, Long serverId, Long terminalId, String name, Integer page, Integer pageSize) {
+    public PageResult<TraceTerminal> queryList(ProviderEnum provider, Long serverId, Long terminalId, String name, Integer page, Integer pageSize) {
         String url = eagleMapConfig.getUri() + "/api/trace/terminal";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -182,12 +182,38 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
     }
 
     @Override
-    public PageResult<TraceTerminal> queryList(ServerType provider, Long serverId, Integer page, Integer pageSize) {
+    public PageResult<TraceTerminal> queryList(ProviderEnum provider, Long serverId, Integer page, Integer pageSize) {
         return this.queryList(provider, serverId, null, null, page, pageSize);
     }
 
     @Override
     public PageResult<TraceTerminal> queryList(Long serverId, Integer page, Integer pageSize) {
-        return this.queryList(ServerType.NONE, serverId, null, null, page, pageSize);
+        return this.queryList(ProviderEnum.NONE, serverId, null, null, page, pageSize);
+    }
+
+    @Override
+    public String queryLastPoint(ProviderEnum provider, Long serverId, Long terminalId, Long traceId) {
+        String url = eagleMapConfig.getUri() + "/api/trace/terminal/last/point";
+        Map<String, Object> param = new HashMap<>();
+        param.put("provider", provider.getName());
+        param.put("serverId", serverId);
+        param.put("terminalId", terminalId);
+        param.put("traceId", traceId);
+        return this.eagleMapTemplate.getFormHttpApiService().doGet(url, param, response -> {
+            if (response.isOk()) {
+                JSONObject jsonObject = JSONUtil.parseObj(response.body());
+                if (jsonObject.getInt("code") == 0) {
+                    return jsonObject.getStr("data");
+                }
+                //将响应信息抛出
+                throw new CommonException(jsonObject.getStr("msg"));
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public String queryLastPoint(Long serverId, Long terminalId, Long traceId) {
+        return this.queryLastPoint(ProviderEnum.NONE, serverId, terminalId, traceId);
     }
 }

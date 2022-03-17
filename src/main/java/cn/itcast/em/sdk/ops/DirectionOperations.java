@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.Coordinate;
 
 import java.util.Map;
@@ -25,7 +25,7 @@ public interface DirectionOperations {
      *                    高德地图参考：https://lbs.amap.com/api/webservice/guide/api/direction#driving
      * @return 百度/高德响应的数据
      */
-    String driving(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
+    String driving(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
 
     /**
      * 驾车路径规划 API 可以规划以小客车、轿车通勤出行的方案，并且返回通勤方案的数据。
@@ -35,7 +35,7 @@ public interface DirectionOperations {
      * @param destination 终点坐标
      * @return 百度/高德响应的数据
      */
-    String driving(ServerType provider, Coordinate origin, Coordinate destination);
+    String driving(ProviderEnum provider, Coordinate origin, Coordinate destination);
 
     /**
      * 驾车路径规划 API 可以规划以小客车、轿车通勤出行的方案，并且返回通勤方案的数据。
@@ -69,7 +69,7 @@ public interface DirectionOperations {
      *                    百度：https://lbsyun.baidu.com/index.php?title=webapi/directionlite-v1#service-page-anchor-1-1
      * @return 百度/高德响应的数据
      */
-    String walking(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
+    String walking(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
 
     /**
      * 骑行路线规划
@@ -79,7 +79,7 @@ public interface DirectionOperations {
      * @param destination 终点坐标
      * @return 百度/高德响应的数据
      */
-    String walking(ServerType provider, Coordinate origin, Coordinate destination);
+    String walking(ProviderEnum provider, Coordinate origin, Coordinate destination);
 
     /**
      * 骑行路线规划
@@ -113,7 +113,7 @@ public interface DirectionOperations {
      *                    百度：https://lbsyun.baidu.com/index.php?title=webapi/directionlite-v1#service-page-anchor-1-1
      * @return 百度/高德响应的数据
      */
-    String bicycling(ServerType provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
+    String bicycling(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
 
     /**
      * 骑行路线规划
@@ -123,7 +123,7 @@ public interface DirectionOperations {
      * @param destination 目的地经纬度
      * @return 百度/高德响应的数据
      */
-    String bicycling(ServerType provider, Coordinate origin, Coordinate destination);
+    String bicycling(ProviderEnum provider, Coordinate origin, Coordinate destination);
 
     /**
      * 骑行路线规划

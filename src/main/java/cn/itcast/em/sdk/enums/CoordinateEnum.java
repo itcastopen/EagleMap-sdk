@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.enums;
 
-public enum CoordinateType {
+public enum CoordinateEnum {
 
     BAIDU("百度(bd09ll)"),
     AMAP("高德(gcj02)"),
@@ -10,7 +10,7 @@ public enum CoordinateType {
 
     private String name;
 
-    CoordinateType(String name) {
+    CoordinateEnum(String name) {
         this.name = name;
     }
 

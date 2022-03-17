@@ -1,23 +1,24 @@
 package cn.itcast.em.sdk.vo;
 
+import cn.itcast.em.sdk.enums.FenceEnum;
 import cn.itcast.em.sdk.enums.ProviderEnum;
 
-import java.util.Date;
-
 /**
+ * 电子围栏
+ *
  * @author zzj
  * @version 1.0
- * @date 2022/3/15
+ * @date 2022/3/17
  */
-public class TraceServer {
+public class TraceFence {
 
     private ProviderEnum provider; //地图服务商
     private Long serverId; //地图服务商中的服务id
-    private String name; //服务名称
-    private String desc; //服务描述
-    private Boolean status; //服务描述
-    private Date created;
-    private Date updated;
+    private Long fenceId; //地图服务商的围栏id
+    private String name; //围栏名称
+    private String desc; //围栏描述
+    private FenceEnum type; //电子围栏类型，1-圆形，2-多边形，3-线性，4-行政区
+    private String param; //创建围栏的参数
 
     public ProviderEnum getProvider() {
         return provider;
@@ -33,6 +34,14 @@ public class TraceServer {
 
     public void setServerId(Long serverId) {
         this.serverId = serverId;
+    }
+
+    public Long getFenceId() {
+        return fenceId;
+    }
+
+    public void setFenceId(Long fenceId) {
+        this.fenceId = fenceId;
     }
 
     public String getName() {
@@ -51,40 +60,32 @@ public class TraceServer {
         this.desc = desc;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public FenceEnum getType() {
+        return type;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setType(FenceEnum type) {
+        this.type = type;
     }
 
-    public Date getCreated() {
-        return created;
+    public String getParam() {
+        return param;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setParam(String param) {
+        this.param = param;
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("TraceServer{");
+        final StringBuffer sb = new StringBuffer("TraceFence{");
         sb.append("provider=").append(provider);
         sb.append(", serverId=").append(serverId);
+        sb.append(", fenceId=").append(fenceId);
         sb.append(", name='").append(name).append('\'');
         sb.append(", desc='").append(desc).append('\'');
-        sb.append(", status=").append(status);
-        sb.append(", created=").append(created);
-        sb.append(", updated=").append(updated);
+        sb.append(", type=").append(type);
+        sb.append(", param='").append(param).append('\'');
         sb.append('}');
         return sb.toString();
     }

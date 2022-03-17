@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.vo;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  * @date 2022/3/16
  */
 public class Trace {
-    private ServerType provider; //地图服务商
+    private ProviderEnum provider; //地图服务商
     private Long serverId; //所属的服务id
     private Long terminalId; //所属的终端id
     private Long traceId; //地图服务商的轨迹id
@@ -25,11 +25,11 @@ public class Trace {
     private String endPoint; //终点坐标，经纬度，逗号分隔
     private String pointList; //轨迹点数据，json格式
 
-    public ServerType getProvider() {
+    public ProviderEnum getProvider() {
         return provider;
     }
 
-    public void setProvider(ServerType provider) {
+    public void setProvider(ProviderEnum provider) {
         this.provider = provider;
     }
 

@@ -1,7 +1,7 @@
 package cn.itcast.em.sdk.ops;
 
-import cn.itcast.em.sdk.enums.CoordinateType;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.CoordinateEnum;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.Coordinate;
 import cn.itcast.em.sdk.vo.IpResult;
 
@@ -23,7 +23,7 @@ public interface BaseOperations {
      * @param provider 服务提供商，必须大写，如：BAIDU,AMAP,NONE，默认：高德地图
      * @return
      */
-    IpResult queryIp(String ip, Integer type, ServerType provider);
+    IpResult queryIp(String ip, Integer type, ProviderEnum provider);
 
     /**
      * IP定位是一套简单的HTTP接口，根据用户输入的IP地址，能够快速的帮用户定位IP的所在位置。
@@ -56,7 +56,7 @@ public interface BaseOperations {
      *                  高德：https://lbs.amap.com/api/webservice/guide/api/staticmaps
      * @return
      */
-    String staticMapImage(ServerType provider, Double longitude, Double latitude, Integer width, Integer height, Integer zoom, Map<String, Object> param);
+    String staticMapImage(ProviderEnum provider, Double longitude, Double latitude, Integer width, Integer height, Integer zoom, Map<String, Object> param);
 
     /**
      * 查询静态地图，指定服务商
@@ -69,7 +69,7 @@ public interface BaseOperations {
      * @param latitude  纬度（gcj02）
      * @return
      */
-    String staticMapImage(ServerType provider, Double longitude, Double latitude);
+    String staticMapImage(ProviderEnum provider, Double longitude, Double latitude);
 
     /**
      * 查询静态地图，默认服务商由EagleMap选择
@@ -133,7 +133,7 @@ public interface BaseOperations {
      * @param coordinates 待转化的坐标值列表
      * @return
      */
-    List<Coordinate> convertToGcj02(ServerType provider, CoordinateType fromType, Coordinate... coordinates);
+    List<Coordinate> convertToGcj02(ProviderEnum provider, CoordinateEnum fromType, Coordinate... coordinates);
 
     /**
      * 将源坐标体系的坐标转化为gcj02，不指定提供商由EagleMap自动选择
@@ -142,7 +142,7 @@ public interface BaseOperations {
      * @param coordinates 待转化的坐标值列表
      * @return
      */
-    List<Coordinate> convertToGcj02(CoordinateType fromType, Coordinate... coordinates);
+    List<Coordinate> convertToGcj02(CoordinateEnum fromType, Coordinate... coordinates);
 
     /**
      * 将百度的坐标转化为gcj02，不指定提供商由EagleMap自动选择
@@ -161,7 +161,7 @@ public interface BaseOperations {
      * @param coordinate 待转化的坐标值
      * @return
      */
-    Coordinate convert(ServerType provider, CoordinateType fromType, CoordinateType toType, Coordinate coordinate);
+    Coordinate convert(ProviderEnum provider, CoordinateEnum fromType, CoordinateEnum toType, Coordinate coordinate);
 
     /**
      * 指定坐标体系转化，不指定提供商由EagleMap自动选择
@@ -171,7 +171,7 @@ public interface BaseOperations {
      * @param coordinate 待转化的坐标值
      * @return
      */
-    Coordinate convert(CoordinateType fromType, CoordinateType toType, Coordinate coordinate);
+    Coordinate convert(CoordinateEnum fromType, CoordinateEnum toType, Coordinate coordinate);
 
     /**
      * 为了使用方便基于hutool工具的封装

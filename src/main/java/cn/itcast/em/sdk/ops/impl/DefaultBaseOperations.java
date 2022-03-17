@@ -5,8 +5,8 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.enums.CoordinateType;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.CoordinateEnum;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.BaseOperations;
 import cn.itcast.em.sdk.vo.Coordinate;
@@ -41,7 +41,7 @@ public class DefaultBaseOperations implements BaseOperations {
      * @return
      */
     @Override
-    public IpResult queryIp(String ip, Integer type, ServerType provider) {
+    public IpResult queryIp(String ip, Integer type, ProviderEnum provider) {
         String url = eagleMapConfig.getUri() + "/api/ip";
         Map<String, Object> param = new HashMap<>();
         param.put("ip", ip);
@@ -69,7 +69,7 @@ public class DefaultBaseOperations implements BaseOperations {
      */
     @Override
     public IpResult queryIp(String ip, Integer type) {
-        return this.queryIp(ip, type, ServerType.NONE);
+        return this.queryIp(ip, type, ProviderEnum.NONE);
     }
 
     /**
@@ -80,11 +80,11 @@ public class DefaultBaseOperations implements BaseOperations {
      */
     @Override
     public IpResult queryIp(String ip) {
-        return this.queryIp(ip, 4, ServerType.NONE);
+        return this.queryIp(ip, 4, ProviderEnum.NONE);
     }
 
     @Override
-    public String staticMapImage(ServerType provider, Double longitude, Double latitude, Integer width, Integer height, Integer zoom, Map<String, Object> param) {
+    public String staticMapImage(ProviderEnum provider, Double longitude, Double latitude, Integer width, Integer height, Integer zoom, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/static/map";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -109,31 +109,31 @@ public class DefaultBaseOperations implements BaseOperations {
 
     @Override
     public String staticMapImage(Double longitude, Double latitude, Integer width, Integer height, Integer zoom, Map<String, Object> param) {
-        return this.staticMapImage(ServerType.NONE, longitude, latitude, width, height, zoom, param);
+        return this.staticMapImage(ProviderEnum.NONE, longitude, latitude, width, height, zoom, param);
     }
 
     @Override
     public String staticMapImage(Double longitude, Double latitude, Integer zoom, Map<String, Object> param) {
-        return this.staticMapImage(ServerType.NONE, longitude, latitude, 750, 300, zoom, param);
+        return this.staticMapImage(ProviderEnum.NONE, longitude, latitude, 750, 300, zoom, param);
     }
 
     @Override
     public String staticMapImage(Double longitude, Double latitude, Map<String, Object> param) {
-        return this.staticMapImage(ServerType.NONE, longitude, latitude, 750, 300, 10, param);
+        return this.staticMapImage(ProviderEnum.NONE, longitude, latitude, 750, 300, 10, param);
     }
 
     @Override
     public String staticMapImage(Double longitude, Double latitude) {
-        return this.staticMapImage(ServerType.NONE, longitude, latitude, 750, 300, 10, null);
+        return this.staticMapImage(ProviderEnum.NONE, longitude, latitude, 750, 300, 10, null);
     }
 
     @Override
-    public String staticMapImage(ServerType provider, Double longitude, Double latitude) {
+    public String staticMapImage(ProviderEnum provider, Double longitude, Double latitude) {
         return this.staticMapImage(provider, longitude, latitude, 750, 300, 10, null);
     }
 
     @Override
-    public List<Coordinate> convertToGcj02(ServerType provider, CoordinateType fromType, Coordinate... coordinates) {
+    public List<Coordinate> convertToGcj02(ProviderEnum provider, CoordinateEnum fromType, Coordinate... coordinates) {
         String url = eagleMapConfig.getUri() + "/api/coordinate/convert/gcj02";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -158,17 +158,17 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public List<Coordinate> convertToGcj02(CoordinateType fromType, Coordinate... coordinates) {
-        return this.convertToGcj02(ServerType.NONE, fromType, coordinates);
+    public List<Coordinate> convertToGcj02(CoordinateEnum fromType, Coordinate... coordinates) {
+        return this.convertToGcj02(ProviderEnum.NONE, fromType, coordinates);
     }
 
     @Override
     public List<Coordinate> baiduConvertToGcj02(Coordinate... coordinates) {
-        return this.convertToGcj02(ServerType.NONE, CoordinateType.BAIDU, coordinates);
+        return this.convertToGcj02(ProviderEnum.NONE, CoordinateEnum.BAIDU, coordinates);
     }
 
     @Override
-    public Coordinate convert(ServerType provider, CoordinateType fromType, CoordinateType toType, Coordinate coordinate) {
+    public Coordinate convert(ProviderEnum provider, CoordinateEnum fromType, CoordinateEnum toType, Coordinate coordinate) {
         String url = eagleMapConfig.getUri() + "/api/coordinate/convert";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -190,8 +190,8 @@ public class DefaultBaseOperations implements BaseOperations {
     }
 
     @Override
-    public Coordinate convert(CoordinateType fromType, CoordinateType toType, Coordinate coordinate) {
-        return this.convert(ServerType.NONE, fromType, toType, coordinate);
+    public Coordinate convert(CoordinateEnum fromType, CoordinateEnum toType, Coordinate coordinate) {
+        return this.convert(ProviderEnum.NONE, fromType, toType, coordinate);
     }
 
     @Override

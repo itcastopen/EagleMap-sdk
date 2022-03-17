@@ -1,8 +1,8 @@
 package cn.itcast.em.sdk.ops;
 
 import cn.itcast.em.sdk.EagleMapTemplate;
-import cn.itcast.em.sdk.enums.CoordinateType;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.CoordinateEnum;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.vo.Coordinate;
 import cn.itcast.em.sdk.vo.IpResult;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class BaseOperationsTest {
         Double longitude = 116.405285;
         Double latitude = 39.904989;
         // String result = this.eagleMapTemplate.opsForBase().staticMapImage(longitude, latitude);
-        String result = this.eagleMapTemplate.opsForBase().staticMapImage(ServerType.BAIDU, longitude, latitude);
+        String result = this.eagleMapTemplate.opsForBase().staticMapImage(ProviderEnum.BAIDU, longitude, latitude);
         System.out.println(result);
     }
 
@@ -46,7 +46,7 @@ public class BaseOperationsTest {
     public void convertToGcj02() {
         Coordinate[] vos = new Coordinate[]{new Coordinate(116.350717, 40.066273),
                 new Coordinate(116.336429, 40.072473)};
-        List<Coordinate> coordinates = this.eagleMapTemplate.opsForBase().convertToGcj02(ServerType.BAIDU, CoordinateType.BAIDU, vos);
+        List<Coordinate> coordinates = this.eagleMapTemplate.opsForBase().convertToGcj02(ProviderEnum.BAIDU, CoordinateEnum.BAIDU, vos);
         // List<CoordinateVo> coordinateVos = this.eagleMapTemplate.opsForBase().baiduConvertToGcj02(vos);
         for (Coordinate coordinate : coordinates) {
             System.out.println(coordinate.toParam());
@@ -57,12 +57,12 @@ public class BaseOperationsTest {
     public void convert() {
         Coordinate vo = new Coordinate(116.350717, 40.066273);
         Coordinate convert = this.eagleMapTemplate.opsForBase()
-                .convert(ServerType.BAIDU, CoordinateType.BAIDU, CoordinateType.AMAP, vo);
+                .convert(ProviderEnum.BAIDU, CoordinateEnum.BAIDU, CoordinateEnum.AMAP, vo);
         System.out.println(convert.toParam());
 
         Coordinate vo2 = new Coordinate(116.34337,40.060448);
         Coordinate convert2 = this.eagleMapTemplate.opsForBase()
-                .convert(ServerType.BAIDU, CoordinateType.AMAP, CoordinateType.BAIDU, vo2);
+                .convert(ProviderEnum.BAIDU, CoordinateEnum.AMAP, CoordinateEnum.BAIDU, vo2);
         System.out.println(convert2.toParam());
     }
 

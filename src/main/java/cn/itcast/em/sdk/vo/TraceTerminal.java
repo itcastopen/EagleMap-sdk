@@ -1,6 +1,6 @@
 package cn.itcast.em.sdk.vo;
 
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 
 /**
  * @author zzj
@@ -9,18 +9,18 @@ import cn.itcast.em.sdk.enums.ServerType;
  */
 public class TraceTerminal {
 
-    private ServerType provider; //地图服务商
+    private ProviderEnum provider; //地图服务商
     private Long serverId; //地图服务商中的服务id
     private Long terminalId; //终端id
     private String name; //终端名称
     private String desc; //终端描述
     private String props; //用户自定义字段
 
-    public ServerType getProvider() {
+    public ProviderEnum getProvider() {
         return provider;
     }
 
-    public void setProvider(ServerType provider) {
+    public void setProvider(ProviderEnum provider) {
         this.provider = provider;
     }
 

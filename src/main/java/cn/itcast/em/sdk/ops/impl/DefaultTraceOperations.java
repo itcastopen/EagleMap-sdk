@@ -3,12 +3,11 @@ package cn.itcast.em.sdk.ops.impl;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpException;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.itcast.em.sdk.EagleMapTemplate;
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.enums.ServerType;
+import cn.itcast.em.sdk.enums.ProviderEnum;
 import cn.itcast.em.sdk.exception.CommonException;
 import cn.itcast.em.sdk.ops.TraceOperations;
 import cn.itcast.em.sdk.vo.PageResult;
@@ -34,7 +33,7 @@ public class DefaultTraceOperations implements TraceOperations {
     }
 
     @Override
-    public Long create(ServerType provider, Long serverId, Long terminalId, String name) {
+    public Long create(ProviderEnum provider, Long serverId, Long terminalId, String name) {
         String url = eagleMapConfig.getUri() + "/api/trace";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -56,11 +55,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public Long create(Long serverId, Long terminalId, String name) {
-        return this.create(ServerType.NONE, serverId, terminalId, name);
+        return this.create(ProviderEnum.NONE, serverId, terminalId, name);
     }
 
     @Override
-    public Boolean delete(ServerType provider, Long serverId, Long terminalId, Long traceId) {
+    public Boolean delete(ProviderEnum provider, Long serverId, Long terminalId, Long traceId) {
         String url = eagleMapConfig.getUri() + "/api/trace";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -82,11 +81,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public Boolean delete(Long serverId, Long terminalId, Long traceId) {
-        return this.delete(ServerType.NONE, serverId, terminalId, traceId);
+        return this.delete(ProviderEnum.NONE, serverId, terminalId, traceId);
     }
 
     @Override
-    public Boolean upload(ServerType provider, Long serverId, Long terminalId, Long traceId, List<Map<String, Object>> pointList) {
+    public Boolean upload(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, List<Map<String, Object>> pointList) {
         String url = eagleMapConfig.getUri() + "/api/trace/upload";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -109,11 +108,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public Boolean upload(Long serverId, Long terminalId, Long traceId, List<Map<String, Object>> pointList) {
-        return this.upload(ServerType.NONE, serverId, terminalId, traceId, pointList);
+        return this.upload(ProviderEnum.NONE, serverId, terminalId, traceId, pointList);
     }
 
     @Override
-    public Boolean stopTrace(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
+    public Boolean stopTrace(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/trace/stop";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -136,11 +135,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public Boolean stopTrace(Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
-        return this.stopTrace(ServerType.NONE, serverId, terminalId, traceId, param);
+        return this.stopTrace(ProviderEnum.NONE, serverId, terminalId, traceId, param);
     }
 
     @Override
-    public PageResult<Trace> queryTracePageList(ServerType provider, Integer page, Integer pageSize) {
+    public PageResult<Trace> queryTracePageList(ProviderEnum provider, Integer page, Integer pageSize) {
         String url = eagleMapConfig.getUri() + "/api/trace/list";
         Map<String, Object> param = new HashMap<>();
         param.put("provider", provider.getName());
@@ -161,11 +160,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public PageResult<Trace> queryTracePageList(Integer page, Integer pageSize) {
-        return this.queryTracePageList(ServerType.NONE, page, pageSize);
+        return this.queryTracePageList(ProviderEnum.NONE, page, pageSize);
     }
 
     @Override
-    public Trace queryTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
+    public Trace queryTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/trace/info";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -188,11 +187,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public Trace queryTraceInfo(Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
-        return this.queryTraceInfo(ServerType.NONE, serverId, terminalId, traceId, param);
+        return this.queryTraceInfo(ProviderEnum.NONE, serverId, terminalId, traceId, param);
     }
 
     @Override
-    public Trace queryOnLineTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
+    public Trace queryOnLineTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
         if (CollUtil.isEmpty(param)) {
             param = new HashMap<>();
         }
@@ -201,22 +200,22 @@ public class DefaultTraceOperations implements TraceOperations {
     }
 
     @Override
-    public Trace queryOnLineTraceInfo(ServerType provider, Long serverId, Long terminalId, Long traceId) {
+    public Trace queryOnLineTraceInfo(ProviderEnum provider, Long serverId, Long terminalId, Long traceId) {
         return this.queryOnLineTraceInfo(provider, serverId, terminalId, traceId, null);
     }
 
     @Override
     public Trace queryOnLineTraceInfo(Long serverId, Long terminalId, Long traceId, Map<String, Object> param) {
-        return this.queryOnLineTraceInfo(ServerType.NONE, serverId, terminalId, traceId, param);
+        return this.queryOnLineTraceInfo(ProviderEnum.NONE, serverId, terminalId, traceId, param);
     }
 
     @Override
     public Trace queryOnLineTraceInfo(Long serverId, Long terminalId, Long traceId) {
-        return this.queryOnLineTraceInfo(ServerType.NONE, serverId, terminalId, traceId, null);
+        return this.queryOnLineTraceInfo(ProviderEnum.NONE, serverId, terminalId, traceId, null);
     }
 
     @Override
-    public String queryTraceImage(ServerType provider, Long serverId, Long terminalId, Long traceId, Integer width, Integer height, Map<String, Object> param) {
+    public String queryTraceImage(ProviderEnum provider, Long serverId, Long terminalId, Long traceId, Integer width, Integer height, Map<String, Object> param) {
         String url = eagleMapConfig.getUri() + "/api/trace/image";
         Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("provider", provider.getName());
@@ -237,11 +236,11 @@ public class DefaultTraceOperations implements TraceOperations {
 
     @Override
     public String queryTraceImage(Long serverId, Long terminalId, Long traceId, Integer width, Integer height, Map<String, Object> param) {
-        return this.queryTraceImage(ServerType.NONE, serverId, terminalId, traceId, width, height, param);
+        return this.queryTraceImage(ProviderEnum.NONE, serverId, terminalId, traceId, width, height, param);
     }
 
     @Override
     public String queryTraceImage(Long serverId, Long terminalId, Long traceId) {
-        return this.queryTraceImage(ServerType.NONE, serverId, terminalId, traceId, null, null, null);
+        return this.queryTraceImage(ProviderEnum.NONE, serverId, terminalId, traceId, null, null, null);
     }
 }

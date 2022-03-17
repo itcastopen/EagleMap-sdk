@@ -21,6 +21,7 @@ public class EagleMapTemplate {
     private TraceServerOperations traceServerOperations;
     private TraceTerminalOperations traceTerminalOperations;
     private TraceOperations traceOperations;
+    private TraceFenceOperations traceFenceOperations;
 
     /**
      * 对于地图基础服务进行操作
@@ -59,6 +60,15 @@ public class EagleMapTemplate {
     }
 
     /**
+     * 对于地图中电子围栏的操作
+     *
+     * @return
+     */
+    public TraceFenceOperations opsForTraceFence() {
+        return this.traceFenceOperations;
+    }
+
+    /**
      * 对于地图中轨迹服务的操作
      *
      * @return
@@ -76,6 +86,7 @@ public class EagleMapTemplate {
         this.traceServerOperations = new DefaultTraceServerOperations(this);
         this.traceTerminalOperations = new DefaultTraceTerminalOperations(this);
         this.traceOperations = new DefaultTraceOperations(this);
+        this.traceFenceOperations = new DefaultTraceFenceOperations(this);
     }
 
     public EagleMapTemplate(String host, int port) {
