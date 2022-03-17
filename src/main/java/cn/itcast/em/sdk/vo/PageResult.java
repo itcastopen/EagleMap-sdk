@@ -1,5 +1,8 @@
 package cn.itcast.em.sdk.vo;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -10,6 +13,17 @@ public class PageResult<T> {
     private Integer pageCount = 0; //总页数
     private Integer page = 0; //当前页码
     private List<T> items = Collections.emptyList(); //数据列表
+
+    public static <T> PageResult<T> toBean(JSONObject jsonObject, Class<T> clazz) {
+        JSONObject data = jsonObject.getJSONObject("data");
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setPage(data.getInt("data"));
+        pageResult.setPageSize(data.getInt("pageSize"));
+        pageResult.setTotal(data.getInt("total"));
+        pageResult.setPageCount(data.getInt("pageCount"));
+        pageResult.setItems(JSONUtil.toList(data.getJSONArray("items"), clazz));
+        return pageResult;
+    }
 
     public Integer getTotal() {
         return total;

@@ -1,14 +1,8 @@
 package cn.itcast.em.sdk;
 
 import cn.itcast.em.sdk.config.EagleMapConfig;
-import cn.itcast.em.sdk.ops.BaseOperations;
-import cn.itcast.em.sdk.ops.DirectionOperations;
-import cn.itcast.em.sdk.ops.TraceServerOperations;
-import cn.itcast.em.sdk.ops.TraceTerminalOperations;
-import cn.itcast.em.sdk.ops.impl.DefaultBaseOperations;
-import cn.itcast.em.sdk.ops.impl.DefaultDirectionOperations;
-import cn.itcast.em.sdk.ops.impl.DefaultTraceServerOperations;
-import cn.itcast.em.sdk.ops.impl.DefaultTraceTerminalOperations;
+import cn.itcast.em.sdk.ops.*;
+import cn.itcast.em.sdk.ops.impl.*;
 import cn.itcast.em.sdk.service.FormHttpApiService;
 import cn.itcast.em.sdk.service.JsonHttpApiService;
 
@@ -26,6 +20,7 @@ public class EagleMapTemplate {
     private DirectionOperations directionOperations;
     private TraceServerOperations traceServerOperations;
     private TraceTerminalOperations traceTerminalOperations;
+    private TraceOperations traceOperations;
 
     /**
      * 对于地图基础服务进行操作
@@ -55,6 +50,15 @@ public class EagleMapTemplate {
     }
 
     /**
+     * 对于地图中轨迹的操作
+     *
+     * @return
+     */
+    public TraceOperations opsForTrace() {
+        return this.traceOperations;
+    }
+
+    /**
      * 对于地图中轨迹服务的操作
      *
      * @return
@@ -71,6 +75,7 @@ public class EagleMapTemplate {
         this.directionOperations = new DefaultDirectionOperations(this);
         this.traceServerOperations = new DefaultTraceServerOperations(this);
         this.traceTerminalOperations = new DefaultTraceTerminalOperations(this);
+        this.traceOperations = new DefaultTraceOperations(this);
     }
 
     public EagleMapTemplate(String host, int port) {

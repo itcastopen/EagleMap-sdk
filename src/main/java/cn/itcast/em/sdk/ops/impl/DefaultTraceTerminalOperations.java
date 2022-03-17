@@ -172,14 +172,7 @@ public class DefaultTraceTerminalOperations implements TraceTerminalOperations {
             if (response.isOk()) {
                 JSONObject jsonObject = JSONUtil.parseObj(response.body());
                 if (jsonObject.getInt("code") == 0) {
-                    JSONObject data = jsonObject.getJSONObject("data");
-                    PageResult<TraceTerminal> pageResult = new PageResult<>();
-                    pageResult.setPage(page);
-                    pageResult.setPageSize(pageSize);
-                    pageResult.setTotal(data.getInt("total"));
-                    pageResult.setPageCount(data.getInt("pageCount"));
-                    pageResult.setItems(JSONUtil.toList(data.getJSONArray("items"), TraceTerminal.class));
-                    return pageResult;
+                    return PageResult.toBean(jsonObject, TraceTerminal.class);
                 }
                 //将响应信息抛出
                 throw new CommonException(jsonObject.getStr("msg"));
