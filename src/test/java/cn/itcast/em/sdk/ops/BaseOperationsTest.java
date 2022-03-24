@@ -27,7 +27,7 @@ public class BaseOperationsTest {
 
     @Test
     public void queryIp() {
-        String ip = "114.242.26.45";
+        String ip = "115.47.143.145";
         IpResult ipResult = this.eagleMapTemplate
                 .opsForBase().queryIp(ip);
         System.out.println(ipResult);
