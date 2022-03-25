@@ -4,6 +4,7 @@ import com.itheima.em.sdk.EagleMapTemplate;
 import com.itheima.em.sdk.enums.CoordinateEnum;
 import com.itheima.em.sdk.enums.ProviderEnum;
 import com.itheima.em.sdk.vo.Coordinate;
+import com.itheima.em.sdk.vo.GeoResult;
 import com.itheima.em.sdk.vo.IpResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,10 +61,33 @@ public class BaseOperationsTest {
                 .convert(ProviderEnum.BAIDU, CoordinateEnum.BAIDU, CoordinateEnum.AMAP, vo);
         System.out.println(convert.toParam());
 
-        Coordinate vo2 = new Coordinate(116.34337,40.060448);
+        Coordinate vo2 = new Coordinate(116.34337, 40.060448);
         Coordinate convert2 = this.eagleMapTemplate.opsForBase()
                 .convert(ProviderEnum.BAIDU, CoordinateEnum.AMAP, CoordinateEnum.BAIDU, vo2);
         System.out.println(convert2.toParam());
+    }
+
+    @Test
+    public void test() {
+        Coordinate coordinate = this.eagleMapTemplate.opsForBase()
+                .bd09ToGcj02(116.350717, 40.066273);
+        System.out.println(coordinate);
+        //116.343847,40.060539
+    }
+
+    @Test
+    public void geoCode() {
+        String address = "北京市龙旗广场";
+        GeoResult geoResult = this.eagleMapTemplate.opsForBase()
+                .geoCode(ProviderEnum.AMAP, address, null);
+        System.out.println(geoResult);
+    }
+
+    @Test
+    public void geoDecode() {
+        GeoResult geoResult = this.eagleMapTemplate.opsForBase()
+                .geoDecode(ProviderEnum.BAIDU, 116.346566,40.066852, null);
+        System.out.println(geoResult);
     }
 
 }

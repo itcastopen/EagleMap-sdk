@@ -19,7 +19,7 @@
     </licenses>
 
     <scm>
-        <url>http://www.itcast.cn/</url>
+        <url>http://www.itheima.com/</url>
         <connection>scm:git:https://github.com/itcastopen/EagleMap-sdk.git</connection>
         <developerConnection>scm:git:https://github.com/itcastopen/EagleMap-sdk.git</developerConnection>
     </scm>

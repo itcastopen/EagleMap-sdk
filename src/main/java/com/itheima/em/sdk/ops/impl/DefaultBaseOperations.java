@@ -1,5 +1,6 @@
 package com.itheima.em.sdk.ops.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.CoordinateUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -10,6 +11,7 @@ import com.itheima.em.sdk.enums.ProviderEnum;
 import com.itheima.em.sdk.exception.CommonException;
 import com.itheima.em.sdk.ops.BaseOperations;
 import com.itheima.em.sdk.vo.Coordinate;
+import com.itheima.em.sdk.vo.GeoResult;
 import com.itheima.em.sdk.vo.IpResult;
 
 import java.util.HashMap;
@@ -222,5 +224,74 @@ public class DefaultBaseOperations implements BaseOperations {
     @Override
     public Coordinate gcj02ToBd09(Double longitude, Double latitude) {
         return new Coordinate(CoordinateUtil.gcj02ToBd09(longitude, latitude));
+    }
+
+    @Override
+    public GeoResult geoCode(ProviderEnum provider, String address, Map<String, Object> param) {
+        String url = eagleMapConfig.getUri() + "/api/geo/code";
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("provider", provider.getName());
+        requestParam.put("address", address);
+        if (CollUtil.isNotEmpty(param)) {
+            for (Map.Entry<String, Object> entry : param.entrySet()) {
+                requestParam.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return this.eagleMapTemplate.getFormHttpApiService().doGet(url, requestParam, response -> {
+            if (response.isOk()) {
+                JSONObject jsonObject = JSONUtil.parseObj(response.body());
+                if (jsonObject.getInt("code") == 0) {
+                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), GeoResult.class);
+                }
+                //将响应信息抛出
+                throw new CommonException(jsonObject.getStr("msg"));
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public GeoResult geoCode(String address, Map<String, Object> param) {
+        return this.geoCode(ProviderEnum.NONE, address, param);
+    }
+
+    @Override
+    public GeoResult geoCode(String address) {
+        return this.geoCode(ProviderEnum.NONE, address, null);
+    }
+
+    @Override
+    public GeoResult geoDecode(ProviderEnum provider, Double longitude, Double latitude, Map<String, Object> param) {
+        String url = eagleMapConfig.getUri() + "/api/geo/decode";
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("provider", provider.getName());
+        requestParam.put("longitude", longitude);
+        requestParam.put("latitude", latitude);
+        if (CollUtil.isNotEmpty(param)) {
+            for (Map.Entry<String, Object> entry : param.entrySet()) {
+                requestParam.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return this.eagleMapTemplate.getFormHttpApiService().doGet(url, requestParam, response -> {
+            if (response.isOk()) {
+                JSONObject jsonObject = JSONUtil.parseObj(response.body());
+                if (jsonObject.getInt("code") == 0) {
+                    return JSONUtil.toBean(jsonObject.getJSONObject("data"), GeoResult.class);
+                }
+                //将响应信息抛出
+                throw new CommonException(jsonObject.getStr("msg"));
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public GeoResult geoDecode(Double longitude, Double latitude, Map<String, Object> param) {
+        return this.geoDecode(ProviderEnum.NONE, longitude, latitude, param);
+    }
+
+    @Override
+    public GeoResult geoDecode(Double longitude, Double latitude) {
+        return this.geoDecode(ProviderEnum.NONE, longitude, latitude, null);
     }
 }

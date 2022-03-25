@@ -47,7 +47,7 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("CoordinateVo{");
+        final StringBuffer sb = new StringBuffer("Coordinate{");
         sb.append("longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append('}');

@@ -17,7 +17,7 @@ EagleMap-sdk提供了两种方式与业务系统对接，分别是：
 
 ~~~xml
 <dependency>
-    <groupId>cn.itcast.em</groupId>
+    <groupId>com.itheima.em</groupId>
     <artifactId>EagleMap-sdk</artifactId>
     <version>{version}</version>
 </dependency>
@@ -47,7 +47,7 @@ System.out.println(ipResult);
 
 ~~~xml
 <dependency>
-    <groupId>cn.itcast.em</groupId>
+    <groupId>com.itheima.em</groupId>
     <artifactId>eaglemap-spring-boot-starter</artifactId>
     <version>{version}</version>
 </dependency>

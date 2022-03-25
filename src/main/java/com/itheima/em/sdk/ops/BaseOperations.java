@@ -3,6 +3,7 @@ package com.itheima.em.sdk.ops;
 import com.itheima.em.sdk.enums.CoordinateEnum;
 import com.itheima.em.sdk.enums.ProviderEnum;
 import com.itheima.em.sdk.vo.Coordinate;
+import com.itheima.em.sdk.vo.GeoResult;
 import com.itheima.em.sdk.vo.IpResult;
 
 import java.util.List;
@@ -128,8 +129,8 @@ public interface BaseOperations {
     /**
      * 将源坐标体系的坐标转化为gcj02
      *
-     * @param provider      指定提供方
-     * @param fromType      源类型
+     * @param provider    指定提供方
+     * @param fromType    源类型
      * @param coordinates 待转化的坐标值列表
      * @return
      */
@@ -138,7 +139,7 @@ public interface BaseOperations {
     /**
      * 将源坐标体系的坐标转化为gcj02，不指定提供商由EagleMap自动选择
      *
-     * @param fromType      源类型
+     * @param fromType    源类型
      * @param coordinates 待转化的坐标值列表
      * @return
      */
@@ -155,9 +156,9 @@ public interface BaseOperations {
     /**
      * 指定坐标体系转化
      *
-     * @param provider     指定提供方
-     * @param fromType     原坐标类型
-     * @param toType       目标坐标类型
+     * @param provider   指定提供方
+     * @param fromType   原坐标类型
+     * @param toType     目标坐标类型
      * @param coordinate 待转化的坐标值
      * @return
      */
@@ -166,8 +167,8 @@ public interface BaseOperations {
     /**
      * 指定坐标体系转化，不指定提供商由EagleMap自动选择
      *
-     * @param fromType     原坐标类型
-     * @param toType       目标坐标类型
+     * @param fromType   原坐标类型
+     * @param toType     目标坐标类型
      * @param coordinate 待转化的坐标值
      * @return
      */
@@ -234,5 +235,70 @@ public interface BaseOperations {
      * @return BD-09 坐标
      */
     Coordinate gcj02ToBd09(Double longitude, Double latitude);
+
+    /**
+     * 将详细的结构化地址转换为经纬度坐标，例如：北京市昌平区回龙观街道传智播客办公楼
+     *
+     * @param provider 服务提供商，必须大写，如：BAIDU,AMAP,NONE，默认：高德地图
+     * @param address  详细地址
+     * @param param    其他可选参数
+     *                 百度地图：https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+     *                 高德地图：https://lbs.amap.com/api/webservice/guide/api/georegeo#geo
+     * @return 位置的geo信息
+     */
+    GeoResult geoCode(ProviderEnum provider, String address, Map<String, Object> param);
+
+    /**
+     * 将详细的结构化地址转换为经纬度坐标，例如：北京市昌平区回龙观街道传智播客办公楼
+     *
+     * @param address 详细地址
+     * @param param   其他可选参数
+     *                百度地图：https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+     *                高德地图：https://lbs.amap.com/api/webservice/guide/api/georegeo#geo
+     * @return 位置的geo信息
+     */
+    GeoResult geoCode(String address, Map<String, Object> param);
+
+    /**
+     * 将详细的结构化地址转换为经纬度坐标，例如：北京市昌平区回龙观街道传智播客办公楼
+     *
+     * @param address 详细地址
+     * @return 位置的geo信息
+     */
+    GeoResult geoCode(String address);
+
+    /**
+     * 将经纬度转换为详细结构化的地址，且返回附近周边的POI、AOI信息。例如：116.343847,40.060539
+     *
+     * @param provider  服务提供商，必须大写，如：BAIDU,AMAP,NONE，默认：高德地图
+     * @param longitude 经度
+     * @param longitude 维度
+     * @param param     其他可选参数
+     *                  百度地图：https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+     *                  高德地图：https://lbs.amap.com/api/webservice/guide/api/georegeo#regeo
+     * @return 位置的geo信息
+     */
+    GeoResult geoDecode(ProviderEnum provider, Double longitude, Double latitude, Map<String, Object> param);
+
+    /**
+     * 将经纬度转换为详细结构化的地址，且返回附近周边的POI、AOI信息。例如：116.343847,40.060539
+     *
+     * @param longitude 经度
+     * @param longitude 维度
+     * @param param     其他可选参数
+     *                  百度地图：https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+     *                  高德地图：https://lbs.amap.com/api/webservice/guide/api/georegeo#regeo
+     * @return 位置的geo信息
+     */
+    GeoResult geoDecode(Double longitude, Double latitude, Map<String, Object> param);
+
+    /**
+     * 将经纬度转换为详细结构化的地址，且返回附近周边的POI、AOI信息。例如：116.343847,40.060539
+     *
+     * @param longitude 经度
+     * @param longitude 维度
+     * @return 位置的geo信息
+     */
+    GeoResult geoDecode(Double longitude, Double latitude);
 
 }
