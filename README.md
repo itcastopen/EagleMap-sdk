@@ -67,8 +67,8 @@ eagle:
 ~~~java
 package cn.itcast.em.boot;
 
-import cn.itcast.em.sdk.EagleMapTemplate;
-import cn.itcast.em.sdk.vo.IpResult;
+import EagleMapTemplate;
+import IpResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
