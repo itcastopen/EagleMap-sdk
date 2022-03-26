@@ -5,6 +5,7 @@ import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.Method;
+import com.itheima.em.sdk.enums.ProviderEnum;
 
 import java.util.Map;
 
@@ -35,6 +36,9 @@ public abstract class HttpApiService {
         }
         //设置请求参数
         setRequestHeader(httpRequest);
+
+        //在请求头中增加 provider 参数
+        httpRequest.header("provider", Convert.toStr(param.getOrDefault("provider", ProviderEnum.NONE.getName())));
 
         //设置请求参数
         setRequestParam(httpRequest, param);
