@@ -43,6 +43,14 @@ System.out.println(ipResult);
 
 ## Spring Boot集成方式
 
+> eaglemap-spring-boot-starter源码：
+>
+> https://gitee.com/itcastopen/eaglemap-spring-boot-starter.git
+>
+> https://github.com/itcastopen/eaglemap-spring-boot-starter.git
+
+
+
 > **第一步，导入maven依赖**
 
 ~~~xml
@@ -51,6 +59,21 @@ System.out.println(ipResult);
     <artifactId>eaglemap-spring-boot-starter</artifactId>
     <version>{version}</version>
 </dependency>
+
+<!-- 如果是SNAPSHOT版本，如要在项目的pom.xml文件中引入快照版源 -->
+<repositories>
+    <repository>
+        <id>sonatypeSnapshots</id>
+        <name>Sonatype Snapshots</name>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
 ~~~
 
 > **第二步，配置application.yml文件**
