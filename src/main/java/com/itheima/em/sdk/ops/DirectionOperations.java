@@ -59,7 +59,7 @@ public interface DirectionOperations {
     String driving(Coordinate origin, Coordinate destination, Map<String, Object> param);
 
     /**
-     * 骑行路线规划
+     * 步行路线规划
      *
      * @param provider    服务提供商，必须大写，默认为：高德地图
      * @param origin      起点坐标
@@ -72,7 +72,7 @@ public interface DirectionOperations {
     String walking(ProviderEnum provider, Coordinate origin, Coordinate destination, Map<String, Object> param);
 
     /**
-     * 骑行路线规划
+     * 步行路线规划
      *
      * @param provider    服务提供商，必须大写，默认为：高德地图
      * @param origin      起点坐标
@@ -82,7 +82,7 @@ public interface DirectionOperations {
     String walking(ProviderEnum provider, Coordinate origin, Coordinate destination);
 
     /**
-     * 骑行路线规划
+     * 步行路线规划
      *
      * @param origin      起点坐标
      * @param destination 终点坐标
@@ -91,7 +91,7 @@ public interface DirectionOperations {
     String walking(Coordinate origin, Coordinate destination);
 
     /**
-     * 骑行路线规划
+     * 步行路线规划
      *
      * @param origin      起点坐标
      * @param destination 终点坐标

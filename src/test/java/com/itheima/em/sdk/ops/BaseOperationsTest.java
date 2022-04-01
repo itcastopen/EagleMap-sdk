@@ -11,23 +11,18 @@ import org.junit.Test;
 
 import java.util.List;
 
-/**
- * @author zzj
- * @version 1.0
- * @date 2022/3/15
- */
 public class BaseOperationsTest {
 
     private EagleMapTemplate eagleMapTemplate;
 
     @Before
-    public void init() {
+    public void init() { //初始化方法
         String host = "127.0.0.1";
         this.eagleMapTemplate = new EagleMapTemplate(host);
     }
 
     @Test
-    public void queryIp() {
+    public void queryIp() { //IP定位
         String ip = "115.47.143.145";
         IpResult ipResult = this.eagleMapTemplate
                 .opsForBase().queryIp(ip);
@@ -35,7 +30,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void staticMapImage() {
+    public void staticMapImage() { //查询静态地图
         Double longitude = 116.405285;
         Double latitude = 39.904989;
         // String result = this.eagleMapTemplate.opsForBase().staticMapImage(longitude, latitude);
@@ -44,7 +39,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void convertToGcj02() {
+    public void convertToGcj02() { //坐标转化，将坐标转为gcj02
         Coordinate[] vos = new Coordinate[]{new Coordinate(116.350717, 40.066273),
                 new Coordinate(116.336429, 40.072473)};
         List<Coordinate> coordinates = this.eagleMapTemplate.opsForBase().convertToGcj02(ProviderEnum.BAIDU, CoordinateEnum.BAIDU, vos);
@@ -55,7 +50,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void convert() {
+    public void convert() { //坐标转化，指定坐标类型进行转化
         Coordinate vo = new Coordinate(116.350717, 40.066273);
         Coordinate convert = this.eagleMapTemplate.opsForBase()
                 .convert(ProviderEnum.BAIDU, CoordinateEnum.BAIDU, CoordinateEnum.AMAP, vo);
@@ -68,7 +63,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void test() {
+    public void bd09ToGcj02() { //坐标转化，百度转化为gcj02
         Coordinate coordinate = this.eagleMapTemplate.opsForBase()
                 .bd09ToGcj02(116.350717, 40.066273);
         System.out.println(coordinate);
@@ -76,7 +71,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void geoCode() {
+    public void geoCode() { //详细地址转换坐标
         String address = "北京市龙旗广场";
         GeoResult geoResult = this.eagleMapTemplate.opsForBase()
                 .geoCode(ProviderEnum.AMAP, address, null);
@@ -84,7 +79,7 @@ public class BaseOperationsTest {
     }
 
     @Test
-    public void geoDecode() {
+    public void geoDecode() { //坐标转化详细地址
         GeoResult geoResult = this.eagleMapTemplate.opsForBase()
                 .geoDecode(ProviderEnum.BAIDU, 116.346566,40.066852, null);
         System.out.println(geoResult);
