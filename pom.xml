@@ -114,7 +114,8 @@
                         </goals>
                         <configuration>
                             <keyname>0xB2355CFD</keyname>
-                            <passphraseServerId>0xB2355CFD</passphraseServerId>
+                            <!--<passphraseServerId>0xB2355CFD</passphraseServerId>-->
+                            <passphrase>0xB2355CFD</passphrase>
                         </configuration>
                     </execution>
                 </executions>
