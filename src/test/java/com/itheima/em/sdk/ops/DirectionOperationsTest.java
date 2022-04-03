@@ -6,11 +6,6 @@ import com.itheima.em.sdk.vo.Coordinate;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author zzj
- * @version 1.0
- * @date 2022/3/15
- */
 public class DirectionOperationsTest {
 
     private EagleMapTemplate eagleMapTemplate;
@@ -30,7 +25,7 @@ public class DirectionOperationsTest {
         System.out.println(result);
     }
 
-    //骑行路线规划
+    //步行路线规划
     @Test
     public void walking() {
         Coordinate origin = new Coordinate(116.34411597643727, 40.06061915065967);

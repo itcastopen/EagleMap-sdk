@@ -13,11 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author zzj
- * @version 1.0
- * @date 2022/3/16
- */
 public class TraceOperationsTest {
 
 
@@ -30,7 +25,7 @@ public class TraceOperationsTest {
     }
 
     @Test
-    public void create() {
+    public void create() { //创建轨迹
         Long serverId = 617418L;
         Long terminalId = 492666422L;
 
@@ -41,11 +36,17 @@ public class TraceOperationsTest {
     }
 
     @Test
-    public void delete() {
+    public void delete() { //删除轨迹
+        Long serverId = 617418L;
+        Long terminalId = 492666422L;
+        Long traceId = 260L;
+        Boolean result = this.eagleMapTemplate.opsForTrace()
+                .delete(serverId, terminalId, traceId);
+        System.out.println(result);
     }
 
     @Test
-    public void upload() {
+    public void upload() { //上传轨迹点
         Long serverId = 617418L;
         Long terminalId = 492666422L;
         Long traceId = 260L;
@@ -94,14 +95,14 @@ public class TraceOperationsTest {
     }
 
     @Test
-    public void stopTrace() {
+    public void stopTrace() { //停止轨迹
         Boolean result = this.eagleMapTemplate.opsForTrace()
                 .stopTrace(617418L, 492731778L, 240L, null);
         System.out.println(result);
     }
 
     @Test
-    public void queryTracePageList() {
+    public void queryTracePageList() { //分页查询轨迹列表
         PageResult<Trace> tracePageResult = this.eagleMapTemplate.opsForTrace()
                 .queryTracePageList(1, 20);
         tracePageResult.getItems()
@@ -109,7 +110,7 @@ public class TraceOperationsTest {
     }
 
     @Test
-    public void queryTraceInfo() {
+    public void queryTraceInfo() { //查询轨迹详情
         Long serverId = 617418L;
         Long terminalId = 492666422L;
         Long traceId = 260L;
@@ -121,7 +122,7 @@ public class TraceOperationsTest {
     }
 
     @Test
-    public void queryTraceImage() {
+    public void queryTraceImage() { //查询轨迹缩略图
         String image = this.eagleMapTemplate.opsForTrace()
                 .queryTraceImage(ProviderEnum.AMAP, 617418L, 492731778L, 240L, null, null, null);
         System.out.println(image);

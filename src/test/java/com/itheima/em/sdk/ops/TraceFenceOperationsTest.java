@@ -11,11 +11,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author zzj
- * @version 1.0
- * @date 2022/3/17
- */
 public class TraceFenceOperationsTest {
 
 
@@ -338,7 +333,7 @@ public class TraceFenceOperationsTest {
     }
 
     @Test
-    public void queryFenceList() {
+    public void queryFenceList() {  //分页查询围栏列表
         PageResult<TraceFence> pageResult = this.eagleMapTemplate.opsForTraceFence()
                 .queryFenceList(ProviderEnum.BAIDU, 1, 2);
         System.out.println(pageResult);
@@ -350,7 +345,7 @@ public class TraceFenceOperationsTest {
     }
 
     @Test
-    public void queryByFenceIdAmap() {
+    public void queryByFenceIdAmap() { //根据围栏id查询围栏信息
         Long serverId = 617418L;
         Long fenceId = 589380L;
         TraceFence traceFence = this.eagleMapTemplate.opsForTraceFence()
@@ -359,7 +354,7 @@ public class TraceFenceOperationsTest {
     }
 
     @Test
-    public void queryByFenceIdBaidu() {
+    public void queryByFenceIdBaidu() { //根据围栏id查询围栏信息
         Long serverId = 231526L;
         Long fenceId = 11L;
         TraceFence traceFence = this.eagleMapTemplate.opsForTraceFence()
@@ -368,7 +363,7 @@ public class TraceFenceOperationsTest {
     }
 
     @Test
-    public void queryTerminalStatus() {
+    public void queryTerminalStatus() { //查询终端在围栏中的状态
         Long serverId = 617418L;
         Long fenceId = 589380L;
         Long terminalId = 492666422L;
